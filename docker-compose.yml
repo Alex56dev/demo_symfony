@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+    db:
+        image: postgres:12.4-alpine
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_PASSWORD: password
+            POSTGRES_USER: demo
+            POSTGRES_DB: demo_db
+    php:
+        build: ./docker/php-fpm
+        ports:
+            - "9000:9001"
+        volumes:
+            - ./symfony:/var/www/symfony
+            - ./logs/symfony:/var/www/symfony/var/log
+        depends_on: 
+            - db
+    nginx:
+        container_name: nginx
+        build: ./docker/nginx
+        ports:
+            - "80:8080"
+        depends_on: 
+            - php
+        volumes:
+            - ./logs/nginx:/var/log/nginx
+            - ./symfony:/var/www/symfony
