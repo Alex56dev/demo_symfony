@@ -1,14 +1,17 @@
 FROM php:7.4.12-fpm
 
 RUN apt update
-RUN apt install -y git
+RUN apt install -y git 
+
+RUN apt-get install -y libpq-dev \
+    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
+    && docker-php-ext-install pdo pdo_pgsql pgsql
 
 RUN echo "$(curl -sS https://composer.github.io/installer.sig) -" > composer-setup.php.sig \
         && curl -sS https://getcomposer.org/installer | tee composer-setup.php | sha384sum -c composer-setup.php.sig \
         && php composer-setup.php && rm composer-setup.php* \
         && chmod +x composer.phar && mv composer.phar /usr/bin/composer
 
-COPY symfony.ini /usr/local/etc/php/conf.d/
 COPY symfony.ini /usr/local/etc/php/conf.d/
 # COPY xdebug.ini  /usr/local/etc/php/conf.d/
 

@@ -18,7 +18,6 @@ services:
         depends_on: 
             - db
     nginx:
-        container_name: nginx
         build: ./docker/nginx
         ports:
             - "80:8080"
