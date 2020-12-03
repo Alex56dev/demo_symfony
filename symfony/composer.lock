@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dd7cbc708f96c2b229a76a2de6355c5e",
+    "content-hash": "0d20c31d7e5a6a4651b45bd35d743d99",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1651,6 +1651,53 @@
                 "wiki": "https://github.com/Atlantic18/DoctrineExtensions/tree/master/doc"
             },
             "time": "2020-09-23T16:40:45+00:00"
+        },
+        {
+            "name": "javihgil/doctrine-pagination",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/javihgil/doctrine-pagination.git",
+                "reference": "a92d5df70d12af5fc3b55b29d4d31410a9ce294b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/javihgil/doctrine-pagination/zipball/a92d5df70d12af5fc3b55b29d4d31410a9ce294b",
+                "reference": "a92d5df70d12af5fc3b55b29d4d31410a9ce294b",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/orm": "~2.5",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.1"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Jhg\\DoctrinePagination\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Doctrine pagination",
+            "support": {
+                "issues": "https://github.com/javihgil/doctrine-pagination/issues",
+                "source": "https://github.com/javihgil/doctrine-pagination/tree/master"
+            },
+            "time": "2020-08-18T11:27:14+00:00"
         },
         {
             "name": "laminas/laminas-code",
@@ -6168,7 +6215,10 @@
     ],
     "aliases": [],
     "minimum-stability": "beta",
-    "stability-flags": [],
+    "stability-flags": {
+        "javihgil/doctrine-pagination": 20,
+        "symfony/stopwatch": 5
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

@@ -3,9 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Author;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Repository\Custom\TranslatablePaginatedRepository;
+use App\Repository\Custom\TranslatableRepositoryDecoratorTrait;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
-// use TranslatableRepositoryTrait;
 
 /**
  * @method Author|null find($id, $lockMode = null, $lockVersion = null)
@@ -13,13 +14,13 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Author[]    findAll()
  * @method Author[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class AuthorRepository extends ServiceEntityRepository
+class AuthorRepository extends TranslatablePaginatedRepository
 {
-    use TranslatableRepositoryTrait;
+    use TranslatableRepositoryDecoratorTrait;
 
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(EntityManagerInterface $em)
     {
-        parent::__construct($registry, Author::class);
+        parent::__construct($em, $em->getClassMetadata(Author::class));
     }
 
     // /**

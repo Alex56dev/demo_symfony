@@ -108,6 +108,9 @@
     "gedmo/doctrine-extensions": {
         "version": "v3.0.0"
     },
+    "javihgil/doctrine-pagination": {
+        "version": "1.1-dev"
+    },
     "laminas/laminas-code": {
         "version": "3.5.0"
     },

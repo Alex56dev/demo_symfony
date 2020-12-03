@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository\Custom;
 
-use Doctrine\DBAL\Query\QueryBuilder as QueryQueryBuilder;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
 
-// Трейт переопределяет базовые методы репозитория, чтобы подключать TranslationWalker,
-// и джойнить переводы значений в один запрос
-trait TranslatableRepositoryTrait {
+/**
+ * Трейт-декоратор для основных методов репозиториев, чтобы можно 
+ */
+trait BaseRepositoryDecoratorTrait {
     
     public function findAll()
     {
         $queryBuilder = $this->createQueryBuilder('a');
-        return $this->processResult($queryBuilder);
+        return $this->getResult($queryBuilder);
     }
 
     public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
@@ -46,7 +47,7 @@ trait TranslatableRepositoryTrait {
             $queryBuilder->setFirstResult((int) $offset);
         }
 
-        return $this->processResult($queryBuilder);
+        return $this->getResult($queryBuilder);
     }
 
     public function findOneBy(array $criteria, array $orderBy = null)
@@ -54,14 +55,8 @@ trait TranslatableRepositoryTrait {
         return $this->findBy($criteria, $orderBy, 1);
     }
 
-    private function processResult(QueryBuilder $queryBuilder)
+    private function getResult(QueryBuilder $queryBuilder, $hydrateMode = AbstractQuery::HYDRATE_OBJECT)
     {
-        $query = $queryBuilder->getQuery();
-        $query->setHint(
-            \Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER, 
-            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'
-        );
-
-        return $query->getResult();
-    }
+        return $queryBuilder->getQuery()->getResult($hydrateMode);
+    }    
 }

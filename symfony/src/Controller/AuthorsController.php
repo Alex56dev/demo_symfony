@@ -27,8 +27,9 @@ class AuthorsController extends AbstractFOSRestController
      */
     public function index(): Response
     {
-        $users = $this->authorRepository->findAll();
+        $users = $this->authorRepository->findPageBy(5, 10)->toArray();
 
+        
         $view = $this->view($users, 200);
         $context = new Context();
         $context->addGroup('user');
